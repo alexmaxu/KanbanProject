@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var reposVM: ReposVM
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ForEach(reposVM.reposList) { repo in
+            Text(repo.name)
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(ReposVM())
 }
+
