@@ -14,6 +14,7 @@ extension NetworkInteractor {
     func getJSONFromURL<T>(url: URL, type: T.Type) async throws -> T where T: Codable {
         let (data, responseHTTP) = try await URLSession.shared.getData(url: url)
         print(data)
+        
         guard responseHTTP.statusCode == 200 else {
             throw NetworkError.badStatusCode(responseHTTP.statusCode)
         }
