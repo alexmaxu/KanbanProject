@@ -37,6 +37,14 @@ final class IssuesVM: ObservableObject {
         }
     }
     
+    func moveRightBacklog(issue: Issue) {
+        issuesDictionary["next"]?.append(issue)
+        if let issueIndexTodelete = issuesDictionary["backlog"]?.firstIndex(where: { $0.id == issue.id }) {
+            issuesDictionary["backlog"]?.remove(at: issueIndexTodelete)
+        }
+        
+    }
+    
     func saveIssuesDictionary() {
         do {
             try issueInteractor.saveIssuesDictionary(issuedDictionary: issuesDictionary, repositoryName: repositoryName)

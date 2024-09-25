@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct IssueCell: View {
+struct IssueCellBacklog: View {
+    
+    @ObservedObject var issueVM: IssuesVM
+    
     let issue: Issue
-    let issueDate: String
     
     var body: some View {
         HStack {
@@ -17,7 +19,7 @@ struct IssueCell: View {
                 Text(issue.title)
                     .bold()
                     .font(.title2)
-                Text(issueDate)
+                Text(issueVM.shortDate(date: issue.createdAt))
                 Text("Comments: \(issue.comments)")
                 Text("Issue: \(issue.number)")
             }
@@ -26,25 +28,36 @@ struct IssueCell: View {
                 Spacer()
                 Button {
                     print("left")
+                    
                 } label: {
                     Image(systemName: "arrow.left")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundStyle(.green)
-                        .bold()
-                        .frame(width: 50)
-                    
-                }
-                Spacer()
-                Button {
-                    print("right")
-                } label: {
-                    Image(systemName: "arrow.right")
                         .resizable()
                         .scaledToFit()
                         .foregroundStyle(.red)
                         .bold()
                         .frame(width: 50)
+                        .padding(12)
+                        .background {
+                            Color.red.opacity(0.2)
+                        }
+                        .clipShape(.rect(cornerRadius: 12))
+                }
+                Spacer()
+                Button {
+                    print("right")
+                    issueVM.moveRightBacklog(issue: issue)
+                } label: {
+                    Image(systemName: "arrow.right")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(.green)
+                        .bold()
+                        .frame(width: 50)
+                        .padding(12)
+                        .background {
+                            Color.green.opacity(0.2)
+                        }
+                        .clipShape(.rect(cornerRadius: 12))
                     
                 }
                 
@@ -55,5 +68,5 @@ struct IssueCell: View {
 }
 
 #Preview {
-    IssueCell(issue: .issuePreview, issueDate: "2024-09-24")
+    IssueCellBacklog(issueVM: IssuesVM(repositoryName: "kanban"), issue: .issuePreview)
 }

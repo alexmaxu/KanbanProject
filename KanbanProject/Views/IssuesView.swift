@@ -16,28 +16,52 @@ struct IssuesView: View {
                     Text("There is no issues.")
                 } else {
                     ForEach(issueVM.issuesDictionary["backlog"] ?? []) { issue in
-                        IssueCell(issue: issue, issueDate: issueVM.shortDate(date: issue.createdAt))
+                        IssueCellBacklog(issueVM: issueVM, issue: issue)
                     }
                 }
             }
             .tabItem {
-                Image(systemName: "square")
+                Image(systemName: "triangle")
                 Text("Backlog")
             }
-            Text("Next")
+            List {
+                if issueVM.issuesDictionary.values.allSatisfy( { $0.isEmpty }) {
+                    Text("There is no issues.")
+                } else {
+                    ForEach(issueVM.issuesDictionary["next"] ?? []) { issue in
+                        IssueCellBacklog(issueVM: issueVM, issue: issue)
+                    }
+                }
+            }
                 .tabItem {
                     Image(systemName: "square")
                     Text("Next")
                 }
-            Text("Doing")
-                .tabItem {
-                    Image(systemName: "square")
-                    Text("Next")
+            List {
+                if issueVM.issuesDictionary.values.allSatisfy( { $0.isEmpty }) {
+                    Text("There is no issues.")
+                } else {
+                    ForEach(issueVM.issuesDictionary["doing"] ?? []) { issue in
+                        IssueCellBacklog(issueVM: issueVM, issue: issue)
+                    }
                 }
-            Text("Done")
+            }
                 .tabItem {
-                    Image(systemName: "square")
-                    Text("Next")
+                    Image(systemName: "pentagon")
+                    Text("Doing")
+                }
+            List {
+                if issueVM.issuesDictionary.values.allSatisfy( { $0.isEmpty }) {
+                    Text("There is no issues.")
+                } else {
+                    ForEach(issueVM.issuesDictionary["done"] ?? []) { issue in
+                        IssueCellBacklog(issueVM: issueVM, issue: issue)
+                    }
+                }
+            }
+                .tabItem {
+                    Image(systemName: "hexagon")
+                    Text("Done")
                 }
         }
     }

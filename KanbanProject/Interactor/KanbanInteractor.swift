@@ -14,6 +14,7 @@ protocol InteractorProtocol {
     func loadLocalRepositories() throws -> [Repos]
     func saveLocalRepositories(localRepositories: [Repos]) throws
     
+    func deleteIssuesDictionary(repositoryName: String) throws
     func saveIssuesDictionary(issuedDictionary: [String:[Issue]], repositoryName: String) throws
     func loadIssuesDictionary(repositoryName: String) throws -> [String:[Issue]]
 }
@@ -41,6 +42,12 @@ struct KanbanInteractor: NetworkInteractor, InteractorProtocol {
             return try JSONDecoder().decode([Repos].self, from: data)
         } else {
             return []
+        }
+    }
+    
+    func deleteIssuesDictionary(repositoryName: String) throws {
+        if FileManager.default.fileExists(atPath: URL.documentsDirectory.appending(path: "\(repositoryName).json").path()) {
+            try FileManager.default.removeItem(atPath: URL.documentsDirectory.appending(path: "\(repositoryName).json").path())
         }
     }
     
