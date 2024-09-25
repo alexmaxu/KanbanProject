@@ -28,12 +28,15 @@ struct ContentView: View {
             .navigationDestination(for: Repos.self) { repo in
                 IssuesView(issueVM: IssuesVM(repositoryName: repo.name))
             }
+            .navigationTitle("Repositories")
         }
     }
 }
 
 #Preview {
-    ContentView()
-        .environmentObject(ReposVM())
+    NavigationStack {
+        ContentView()
+            .environmentObject(ReposVM())
+    }
 }
 

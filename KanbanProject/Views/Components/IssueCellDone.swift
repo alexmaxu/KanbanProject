@@ -1,5 +1,5 @@
 //
-//  IssueCell.swift
+//  IssueCellDone.swift
 //  KanbanProject
 //
 //  Created by Alex  on 25/9/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct IssueCellBacklog: View {
+struct IssueCellDone: View {
     
     @ObservedObject var issueVM: IssuesVM
     
@@ -27,22 +27,21 @@ struct IssueCellBacklog: View {
             HStack {
                 Spacer()
                 Button {
-                    issueVM.moveRightBacklog(issue: issue)
+                    issueVM.moveLeftDone(issue: issue)
                 } label: {
-                    Image(systemName: "arrow.right")
+                    Image(systemName: "arrow.left")
                         .resizable()
                         .scaledToFit()
-                        .foregroundStyle(.green)
+                        .foregroundStyle(.red)
                         .bold()
                         .frame(width: 50)
                         .padding(12)
                         .background {
-                            Color.green.opacity(0.2)
+                            Color.red.opacity(0.2)
                         }
                         .clipShape(.rect(cornerRadius: 12))
-                    
                 }
-                
+                Spacer()
             }
             .buttonStyle(.plain)
         }
@@ -50,5 +49,5 @@ struct IssueCellBacklog: View {
 }
 
 #Preview {
-    IssueCellBacklog(issueVM: IssuesVM(repositoryName: "kanban"), issue: .issuePreview)
+    IssueCellDone(issueVM: IssuesVM(repositoryName: "kanban"), issue: .issuePreview)
 }

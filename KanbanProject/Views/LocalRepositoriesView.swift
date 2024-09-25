@@ -11,6 +11,9 @@ struct LocalRepositoriesView: View {
     @EnvironmentObject var reposVM: ReposVM
     var body: some View {
         List {
+            if reposVM.localReposList.isEmpty {
+                Text("There is no Local Repositories. You should add it from Public Repositories")
+            }
             ForEach(reposVM.localReposList, id: \.self) { localRepo in
                 NavigationLink(value: localRepo) {
                     VStack(alignment: .leading) {
@@ -28,12 +31,10 @@ struct LocalRepositoriesView: View {
                         } icon: {
                             Image(systemName: "trash")
                         }
-
                     }
                 }
             }
         }
-        
     }
 }
 

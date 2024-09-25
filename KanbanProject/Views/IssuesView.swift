@@ -12,7 +12,7 @@ struct IssuesView: View {
     var body: some View {
         TabView {
             List {
-                if issueVM.issuesDictionary.values.allSatisfy( { $0.isEmpty }) {
+                if issueVM.issuesDictionary["backlog"] == [] {
                     Text("There is no issues.")
                 } else {
                     ForEach(issueVM.issuesDictionary["backlog"] ?? []) { issue in
@@ -20,53 +20,59 @@ struct IssuesView: View {
                     }
                 }
             }
+            .onAppear {
+                
+            }
             .tabItem {
                 Image(systemName: "triangle")
                 Text("Backlog")
             }
             List {
-                if issueVM.issuesDictionary.values.allSatisfy( { $0.isEmpty }) {
+                if issueVM.issuesDictionary["next"] == [] {
                     Text("There is no issues.")
                 } else {
                     ForEach(issueVM.issuesDictionary["next"] ?? []) { issue in
-                        IssueCellBacklog(issueVM: issueVM, issue: issue)
+                        IssueCellNext(issueVM: issueVM, issue: issue)
                     }
                 }
             }
-                .tabItem {
-                    Image(systemName: "square")
-                    Text("Next")
-                }
+            .tabItem {
+                Image(systemName: "square")
+                Text("Next")
+            }
             List {
-                if issueVM.issuesDictionary.values.allSatisfy( { $0.isEmpty }) {
+                if issueVM.issuesDictionary["doing"] == [] {
                     Text("There is no issues.")
                 } else {
                     ForEach(issueVM.issuesDictionary["doing"] ?? []) { issue in
-                        IssueCellBacklog(issueVM: issueVM, issue: issue)
+                        IssueCellDoing(issueVM: issueVM, issue: issue)
                     }
                 }
             }
-                .tabItem {
-                    Image(systemName: "pentagon")
-                    Text("Doing")
-                }
+            .tabItem {
+                Image(systemName: "pentagon")
+                Text("Doing")
+            }
             List {
-                if issueVM.issuesDictionary.values.allSatisfy( { $0.isEmpty }) {
+                if issueVM.issuesDictionary["done"] == [] {
                     Text("There is no issues.")
                 } else {
                     ForEach(issueVM.issuesDictionary["done"] ?? []) { issue in
-                        IssueCellBacklog(issueVM: issueVM, issue: issue)
+                        IssueCellDone(issueVM: issueVM, issue: issue)
                     }
                 }
             }
-                .tabItem {
-                    Image(systemName: "hexagon")
-                    Text("Done")
-                }
+            .tabItem {
+                Image(systemName: "hexagon")
+                Text("Done")
+            }
         }
+        .navigationTitle("Kanban Board")
     }
 }
 
 #Preview {
-    IssuesView(issueVM: IssuesVM(repositoryName: "kanban"))
+    NavigationStack {
+        IssuesView(issueVM: IssuesVM(repositoryName: "kanban"))
+    }
 }

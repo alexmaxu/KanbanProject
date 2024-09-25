@@ -17,7 +17,7 @@ struct Owner: Codable, Hashable {
     let login: String
 }
 
-struct Issue: Codable, Identifiable {
+struct Issue: Codable, Identifiable, Hashable{
     let id: Int
     let title: String
     let state: String
