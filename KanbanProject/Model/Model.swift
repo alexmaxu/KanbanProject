@@ -21,5 +21,8 @@ struct Issue: Codable, Identifiable {
     let id: Int
     let title: String
     let state: String
-    let body: String
+    let body: String?
+    let comments: Int
+    let number: Int
+    let createdAt: String
 }

@@ -20,27 +20,21 @@ final class IssuesVM: ObservableObject {
     @Published var doing: [Issue] = []
     @Published var done: [Issue] = []
     
-    @Published var issuesDictionary: [String:[Issue]] = [ "backlog":[],
-                                                          "next":[],
-                                                          "doing":[],
-                                                          "done":[] ] {
+    @Published var issuesDictionary: [String:[Issue]] = [ "backlog":[], "next":[], "doing":[], "done":[]] {
         didSet {
             saveIssuesDictionary()
         }
     }
     
-    init(issueInteractor: InteractorProtocol = Interactor.shared, repositoryName: String) {
+    init(issueInteractor: InteractorProtocol = KanbanInteractor.shared, repositoryName: String) {
         self.issueInteractor = issueInteractor
         self.repositoryName = repositoryName
         Task {
             await loadIssuesDictionary()
-        }
-        if issuesDictionary.values.allSatisfy({ $0.isEmpty }) {
-            Task {
+            if issuesDictionary.values.allSatisfy({ $0.isEmpty }) {
                 await fetchIssuesByRepository()
             }
         }
-        
     }
     
     func saveIssuesDictionary() {
@@ -61,15 +55,20 @@ final class IssuesVM: ObservableObject {
             print(error)
         }
     }
-
+    
     func fetchIssuesByRepository() async  {
         do {
-            let issueResult = try await issueInteractor.fetchIssues(repositoryName: repositoryName)
+            let issueResult = try await issueInteractor.fetchIssues(repositoryName: repositoryName) 
             await MainActor.run {
                 self.issuesDictionary["backlog"] = issueResult
             }
+            
         } catch {
             print(error)
         }
+    }
+    
+    func shortDate(date: String) -> String {
+        String(date.prefix(10))
     }
 }

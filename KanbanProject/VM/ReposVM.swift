@@ -18,15 +18,16 @@ final class ReposVM: ObservableObject {
         }
     }
     
-    init(repoInteractor: InteractorProtocol = Interactor.shared ) {
+    var page = 1
+    var isLastApiPage = false
+    
+    init(repoInteractor: InteractorProtocol = KanbanInteractor.shared ) {
         self.repoInteractor = repoInteractor
         getLocalRepos()
         Task {
             await getGeneralRepos()
         }
     }
-    
-    
     
     func saveLocalRepos() {
         do {
@@ -61,12 +62,25 @@ final class ReposVM: ObservableObject {
     
     func getGeneralRepos() async  {
         do {
-            let reposResult = try await repoInteractor.fetchRepos()
-            await MainActor.run {
-                self.reposList = reposResult
+            let reposResult = try await repoInteractor.fetchRepos(page: page)
+            if reposResult == [] {
+                isLastApiPage = true
+            } else {
+                await MainActor.run {
+                    self.reposList += reposResult
+                }
             }
         } catch {
             print(error)
+        }
+    }
+    
+    func getNextPageRepos(repo: Repos) {
+        if repo.id == reposList.last?.id && !isLastApiPage {
+            page += 1
+            Task {
+                await getGeneralRepos()
+            }
         }
     }
     

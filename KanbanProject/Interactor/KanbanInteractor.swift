@@ -8,7 +8,7 @@
 import Foundation
 
 protocol InteractorProtocol {
-    func fetchRepos() async throws -> [Repos]
+    func fetchRepos(page: Int) async throws -> [Repos]
     func fetchIssues(repositoryName: String) async throws -> [Issue]
     
     func loadLocalRepositories() throws -> [Repos]
@@ -18,12 +18,12 @@ protocol InteractorProtocol {
     func loadIssuesDictionary(repositoryName: String) throws -> [String:[Issue]]
 }
 
-struct Interactor: NetworkInteractor, InteractorProtocol {
+struct KanbanInteractor: NetworkInteractor, InteractorProtocol {
     
-    static let shared = Interactor()
+    static let shared = KanbanInteractor()
     
-    func fetchRepos() async throws -> [Repos] {
-        try await getJSONFromURL(url: .getReposURL, type: [Repos].self)
+    func fetchRepos(page: Int) async throws -> [Repos] {
+        try await getJSONFromURLRequest(request: .get(url: .getReposURL, page: page), type: [Repos].self)
     }
     
     func fetchIssues(repositoryName: String) async throws -> [Issue] {
@@ -54,11 +54,7 @@ struct Interactor: NetworkInteractor, InteractorProtocol {
             let data = try Data(contentsOf: URL.documentsDirectory.appending(path: "\(repositoryName).json"))
             return try JSONDecoder().decode([String:[Issue]].self, from: data)
         } else {
-            return ["backlog":[],
-                    "next":[],
-                    "doing":[],
-                    "done":[]
-                    ]
+            return ["backlog":[], "next":[], "doing":[], "done":[]]
         }
     }
 }

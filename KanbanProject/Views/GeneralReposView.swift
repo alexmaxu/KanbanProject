@@ -19,8 +19,12 @@ struct GeneralReposView: View {
                             .bold()
                         Text(repo.owner.login)
                     }
+                    .frame(height: 130)
                     Spacer()
                     Image(systemName: "plus")
+                }
+                .onAppear {
+                    reposVM.getNextPageRepos(repo: repo)
                 }
                 .onTapGesture {
                     reposVM.addToLocalRepository(repoID: repo.id)

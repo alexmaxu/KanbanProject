@@ -12,10 +12,33 @@ struct IssuesView: View {
     var body: some View {
         TabView {
             List {
-                ForEach(issueVM.issuesDictionary["backlog"] ?? []) { issue in
-                    Text(issue.title)
+                if issueVM.issuesDictionary.values.allSatisfy( { $0.isEmpty }) {
+                    Text("There is no issues.")
+                } else {
+                    ForEach(issueVM.issuesDictionary["backlog"] ?? []) { issue in
+                        IssueCell(issue: issue, issueDate: issueVM.shortDate(date: issue.createdAt))
+                    }
                 }
             }
+            .tabItem {
+                Image(systemName: "square")
+                Text("Backlog")
+            }
+            Text("Next")
+                .tabItem {
+                    Image(systemName: "square")
+                    Text("Next")
+                }
+            Text("Doing")
+                .tabItem {
+                    Image(systemName: "square")
+                    Text("Next")
+                }
+            Text("Done")
+                .tabItem {
+                    Image(systemName: "square")
+                    Text("Next")
+                }
         }
     }
 }
