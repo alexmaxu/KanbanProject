@@ -1,48 +1,29 @@
 //
-//  Interactor.swift
+//  IssueInteractor.swift
 //  KanbanProject
 //
-//  Created by Alex  on 24/9/24.
+//  Created by Alex  on 26/9/24.
 //
 
 import Foundation
 
-protocol InteractorProtocol {
-    func fetchRepos(page: Int) async throws -> [Repos]
+protocol IssuesInteractorProtocol {
+    
     func fetchIssues(repositoryName: String) async throws -> [Issue]
-    
-    func loadLocalRepositories() throws -> [Repos]
-    func saveLocalRepositories(localRepositories: [Repos]) throws
-    
+
     func deleteIssuesDictionary(repositoryName: String) throws
+    
     func saveIssuesDictionary(issuedDictionary: [String:[Issue]], repositoryName: String) throws
     func loadIssuesDictionary(repositoryName: String) throws -> [String:[Issue]]
 }
 
-struct KanbanInteractor: NetworkInteractor, InteractorProtocol {
+
+struct IssuesInteractor: NetworkInteractor, IssuesInteractorProtocol {
     
-    static let shared = KanbanInteractor()
-    
-    func fetchRepos(page: Int) async throws -> [Repos] {
-        try await getJSONFromURLRequest(request: .get(url: .getReposURL, page: page), type: [Repos].self)
-    }
+    static let shared = IssuesInteractor()
     
     func fetchIssues(repositoryName: String) async throws -> [Issue] {
         try await getJSONFromURL(url: .getIssuesURL(repositoryName: repositoryName), type: [Issue].self)
-    }
-    
-    func saveLocalRepositories(localRepositories: [Repos]) throws {
-        let data = try JSONEncoder().encode(localRepositories)
-        try data.write(to: URL.documentsDirectory.appending(path: "LocalRepositories.json"))
-    }
-    
-    func loadLocalRepositories() throws -> [Repos] {
-        if FileManager.default.fileExists(atPath: URL.documentsDirectory.appending(path: "LocalRepositories.json").path()) {
-            let data = try Data(contentsOf: URL.documentsDirectory.appending(path: "LocalRepositories.json"))
-            return try JSONDecoder().decode([Repos].self, from: data)
-        } else {
-            return []
-        }
     }
     
     func deleteIssuesDictionary(repositoryName: String) throws {

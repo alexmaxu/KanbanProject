@@ -9,7 +9,7 @@ import Foundation
 
 final class ReposVM: ObservableObject {
     
-    let repoInteractor: InteractorProtocol
+    let repoInteractor: ReposInteractorProtocol
     
     @Published var reposList: [Repos] = []
     @Published var localReposList: [Repos] = [] {
@@ -21,7 +21,7 @@ final class ReposVM: ObservableObject {
     var page = 1
     var isLastApiPage = false
     
-    init(repoInteractor: InteractorProtocol = KanbanInteractor.shared ) {
+    init(repoInteractor: ReposInteractorProtocol = ReposInteractor.shared ) {
         self.repoInteractor = repoInteractor
         getLocalRepos()
         Task {

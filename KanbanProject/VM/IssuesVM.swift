@@ -9,7 +9,7 @@ import Foundation
 
 final class IssuesVM: ObservableObject {
     
-    let issueInteractor: InteractorProtocol
+    let issueInteractor: IssuesInteractorProtocol
     
     var repositoryName = ""
     
@@ -21,7 +21,7 @@ final class IssuesVM: ObservableObject {
         }
     }
     
-    init(issueInteractor: InteractorProtocol = KanbanInteractor.shared, repositoryName: String) {
+    init(issueInteractor: IssuesInteractorProtocol = IssuesInteractor.shared, repositoryName: String) {
         self.issueInteractor = issueInteractor
         self.repositoryName = repositoryName
         Task {

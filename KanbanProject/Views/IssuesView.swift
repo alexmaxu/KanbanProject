@@ -9,6 +9,9 @@ import SwiftUI
 
 struct IssuesView: View {
     @ObservedObject var issueVM: IssuesVM
+    
+    let title: String
+    
     var body: some View {
         TabView {
             List {
@@ -67,12 +70,12 @@ struct IssuesView: View {
                 Text("Done")
             }
         }
-        .navigationTitle("Kanban Board")
+        .navigationTitle(title)
     }
 }
 
 #Preview {
     NavigationStack {
-        IssuesView(issueVM: IssuesVM(repositoryName: "kanban"))
+        IssuesView(issueVM: IssuesVM(repositoryName: "kanban"), title: "title")
     }
 }
