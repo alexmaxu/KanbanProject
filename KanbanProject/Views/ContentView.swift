@@ -32,7 +32,7 @@ struct ContentView: View {
                     }
                     .tag(1)
             }
-            .navigationDestination(for: Repos.self) { repo in
+            .navigationDestination(for: Repository.self) { repo in
                 IssuesView(issueVM: IssuesVM(repositoryName: repo.name), title: repo.name)
             }
             .navigationTitle("Repositories")

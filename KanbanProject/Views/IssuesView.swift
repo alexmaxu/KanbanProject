@@ -14,57 +14,22 @@ struct IssuesView: View {
     
     var body: some View {
         TabView {
-            List {
-                if issueVM.issuesDictionary["backlog"] == [] {
-                    Text("There is no issues.")
-                } else {
-                    ForEach(issueVM.issuesDictionary["backlog"] ?? []) { issue in
-                        IssueCellBacklog(issueVM: issueVM, issue: issue)
-                    }
-                }
-            }
-            .onAppear {
-                
-            }
+            BacklogList(issueVM: issueVM)
             .tabItem {
                 Image(systemName: "triangle")
                 Text("Backlog")
             }
-            List {
-                if issueVM.issuesDictionary["next"] == [] {
-                    Text("There is no issues.")
-                } else {
-                    ForEach(issueVM.issuesDictionary["next"] ?? []) { issue in
-                        IssueCellNext(issueVM: issueVM, issue: issue)
-                    }
-                }
-            }
+            NextList(issueVM: issueVM)
             .tabItem {
                 Image(systemName: "square")
                 Text("Next")
             }
-            List {
-                if issueVM.issuesDictionary["doing"] == [] {
-                    Text("There is no issues.")
-                } else {
-                    ForEach(issueVM.issuesDictionary["doing"] ?? []) { issue in
-                        IssueCellDoing(issueVM: issueVM, issue: issue)
-                    }
-                }
-            }
+            DoingList(issueVM: issueVM)
             .tabItem {
                 Image(systemName: "pentagon")
                 Text("Doing")
             }
-            List {
-                if issueVM.issuesDictionary["done"] == [] {
-                    Text("There is no issues.")
-                } else {
-                    ForEach(issueVM.issuesDictionary["done"] ?? []) { issue in
-                        IssueCellDone(issueVM: issueVM, issue: issue)
-                    }
-                }
-            }
+            DoneList(issueVM: issueVM)
             .tabItem {
                 Image(systemName: "hexagon")
                 Text("Done")

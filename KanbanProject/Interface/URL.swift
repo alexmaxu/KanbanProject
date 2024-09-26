@@ -7,11 +7,10 @@
 
 import Foundation
 
-
 let mainURL = URL(string: "https://api.github.com")!
 
 extension URL {
-    static let getReposURL = mainURL.appending(path: "users/alexmaxu/repos")
+    static let getRepositoryURL = mainURL.appending(path: "users/alexmaxu/repos")
     
     static func getIssuesURL(repositoryName: String) -> URL {
        mainURL.appending(path: "repos/alexmaxu/\(repositoryName)/issues")

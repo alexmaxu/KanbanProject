@@ -11,8 +11,8 @@ final class ReposVM: ObservableObject {
     
     let repoInteractor: ReposInteractorProtocol
     
-    @Published var reposList: [Repos] = []
-    @Published var localReposList: [Repos] = [] {
+    @Published var reposList: [Repository] = []
+    @Published var localReposList: [Repository] = [] {
         didSet {
             saveLocalRepos()
         }
@@ -80,7 +80,7 @@ final class ReposVM: ObservableObject {
         }
     }
     
-    func getNextPageRepos(repo: Repos) {
+    func getNextPageRepos(repo: Repository) {
         if repo.id == reposList.last?.id && !isLastApiPage {
             page += 1
             Task {
