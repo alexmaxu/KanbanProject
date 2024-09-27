@@ -46,7 +46,6 @@ final class IssuesVM: ObservableObject {
             await MainActor.run {
                 issuesDictionary["backlog"]? += missIssues
             }
-            
         }
     }
     
@@ -55,7 +54,6 @@ final class IssuesVM: ObservableObject {
         if let issueIndexTodelete = issuesDictionary["backlog"]?.firstIndex(where: { $0.id == issue.id }) {
             issuesDictionary["backlog"]?.remove(at: issueIndexTodelete)
         }
-        
     }
     
     func moveRightNext(issue: Issue) {
