@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GeneralReposView: View {
     @EnvironmentObject var reposVM: ReposVM
+    @Binding var selectedTab: Int
     
     var body: some View {
         List {
@@ -22,12 +23,23 @@ struct GeneralReposView: View {
                     .frame(height: 130)
                     Spacer()
                     Image(systemName: "plus")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(.black)
+                        .bold()
+                        .frame(width: 40)
+                        .padding(12)
+                        .background {
+                            Color.black.opacity(0.2)
+                        }
+                        .clipShape(.rect(cornerRadius: 12))
                 }
                 .onAppear {
                     reposVM.getNextPageRepos(repo: repo)
                 }
                 .onTapGesture {
                     reposVM.addToLocalRepository(repoID: repo.id)
+                    selectedTab = 1
                 }
             }
         }
@@ -36,7 +48,7 @@ struct GeneralReposView: View {
 
 #Preview {
     NavigationStack {
-        GeneralReposView()
-            .environmentObject(ReposVM())
+        GeneralReposView(selectedTab: .constant(Int()))
+            .environmentObject(ReposVM(repoInteractor: ReposInteractor()))
     }
 }

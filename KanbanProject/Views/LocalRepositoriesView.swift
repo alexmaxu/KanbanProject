@@ -41,6 +41,6 @@ struct LocalRepositoriesView: View {
 #Preview {
     NavigationStack {
         LocalRepositoriesView()
-            .environmentObject(ReposVM())
+            .environmentObject(ReposVM(repoInteractor: ReposInteractor()))
     }
 }

@@ -66,5 +66,5 @@ struct IssueCellDoing: View {
 }
 
 #Preview {
-    IssueCellDoing(issueVM: IssuesVM(repositoryName: "kanban"), issue: .issuePreview)
+    IssueCellDoing(issueVM: IssuesVM(issueInteractor: IssuesInteractor(), repositoryName: "kanban"), issue: .issuePreview)
 }

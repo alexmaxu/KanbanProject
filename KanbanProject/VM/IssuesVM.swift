@@ -10,20 +10,23 @@ import Foundation
 final class IssuesVM: ObservableObject {
     
     let issueInteractor: IssuesInteractorProtocol
+    var repositoryName: String = ""
     
-    var repositoryName = "test hola"
     
     @Published var issuesList: [Issue] = []
     
-    @Published var issuesDictionary: [String:[Issue]] = ["backlog":[], "next":[], "doing":[], "done":[]] {
+    @Published var issuesDictionary: [KanbanColumn:[Issue]] = [.backlog:[], .next:[], .doing:[], .done:[]] {
         didSet {
             saveIssuesDictionary()
         }
     }
     
-    init(issueInteractor: IssuesInteractorProtocol = IssuesInteractor.shared, repositoryName: String) {
+    init(issueInteractor: IssuesInteractorProtocol , repositoryName: String) {
         self.issueInteractor = issueInteractor
         self.repositoryName = repositoryName
+    }
+    
+    func obtainIssues() async {
         Task {
             await loadIssuesDictionary()
             if issuesDictionary.values.allSatisfy({ $0.isEmpty }) {
@@ -44,50 +47,50 @@ final class IssuesVM: ObservableObject {
         if !(uniqueIssuesFromArray == uniqueIssuesFromDictionary) {
             let missIssues = Array(uniqueIssuesFromDictionary.symmetricDifference(uniqueIssuesFromArray))
             await MainActor.run {
-                issuesDictionary["backlog"]? += missIssues
+                issuesDictionary[.backlog]? += missIssues
             }
         }
     }
     
     func moveRightBacklog(issue: Issue) {
-        issuesDictionary["next"]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary["backlog"]?.firstIndex(where: { $0.id == issue.id }) {
-            issuesDictionary["backlog"]?.remove(at: issueIndexTodelete)
+        issuesDictionary[.next]?.append(issue)
+        if let issueIndexTodelete = issuesDictionary[.backlog]?.firstIndex(where: { $0.id == issue.id }) {
+            issuesDictionary[.backlog]?.remove(at: issueIndexTodelete)
         }
     }
     
     func moveRightNext(issue: Issue) {
-        issuesDictionary["doing"]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary["next"]?.firstIndex(where: { $0.id == issue.id }) {
-            issuesDictionary["next"]?.remove(at: issueIndexTodelete)
+        issuesDictionary[.doing]?.append(issue)
+        if let issueIndexTodelete = issuesDictionary[.next]?.firstIndex(where: { $0.id == issue.id }) {
+            issuesDictionary[.next]?.remove(at: issueIndexTodelete)
         }
     }
     
     func moveLeftNext(issue: Issue) {
-        issuesDictionary["backlog"]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary["next"]?.firstIndex(where: { $0.id == issue.id }) {
-            issuesDictionary["next"]?.remove(at: issueIndexTodelete)
+        issuesDictionary[.backlog]?.append(issue)
+        if let issueIndexTodelete = issuesDictionary[.next]?.firstIndex(where: { $0.id == issue.id }) {
+            issuesDictionary[.next]?.remove(at: issueIndexTodelete)
         }
     }
     
     func moveRightDoing(issue: Issue) {
-        issuesDictionary["done"]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary["doing"]?.firstIndex(where: { $0.id == issue.id }) {
-            issuesDictionary["doing"]?.remove(at: issueIndexTodelete)
+        issuesDictionary[.done]?.append(issue)
+        if let issueIndexTodelete = issuesDictionary[.doing]?.firstIndex(where: { $0.id == issue.id }) {
+            issuesDictionary[.doing]?.remove(at: issueIndexTodelete)
         }
     }
     
     func moveLeftDoing(issue: Issue) {
-        issuesDictionary["next"]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary["doing"]?.firstIndex(where: { $0.id == issue.id }) {
-            issuesDictionary["doing"]?.remove(at: issueIndexTodelete)
+        issuesDictionary[.next]?.append(issue)
+        if let issueIndexTodelete = issuesDictionary[.doing]?.firstIndex(where: { $0.id == issue.id }) {
+            issuesDictionary[.doing]?.remove(at: issueIndexTodelete)
         }
     }
     
     func moveLeftDone(issue: Issue) {
-        issuesDictionary["doing"]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary["done"]?.firstIndex(where: { $0.id == issue.id }) {
-            issuesDictionary["done"]?.remove(at: issueIndexTodelete)
+        issuesDictionary[.doing]?.append(issue)
+        if let issueIndexTodelete = issuesDictionary[.done]?.firstIndex(where: { $0.id == issue.id }) {
+            issuesDictionary[.done]?.remove(at: issueIndexTodelete)
         }
     }
     
@@ -114,7 +117,7 @@ final class IssuesVM: ObservableObject {
         do {
             let issueResult = try await issueInteractor.fetchIssues(repositoryName: repositoryName) 
             await MainActor.run {
-                self.issuesDictionary["backlog"] = issueResult
+                self.issuesDictionary[.backlog] = issueResult
             }
         } catch {
             print(error)

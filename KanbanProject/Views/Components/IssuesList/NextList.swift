@@ -13,10 +13,10 @@ struct NextList: View {
     
     var body: some View {
         List {
-            if issueVM.issuesDictionary["next"] == [] {
+            if issueVM.issuesDictionary[.next] == [] {
                 Text("There is no issues.")
             } else {
-                ForEach(issueVM.issuesDictionary["next"] ?? []) { issue in
+                ForEach(issueVM.issuesDictionary[.next] ?? []) { issue in
                     IssueCellNext(issueVM: issueVM, issue: issue)
                 }
             }
@@ -25,5 +25,5 @@ struct NextList: View {
 }
 
 #Preview {
-    NextList(issueVM: IssuesVM(repositoryName: "kanban"))
+    NextList(issueVM: IssuesVM(issueInteractor: IssuesInteractor(), repositoryName: "kanban"))
 }

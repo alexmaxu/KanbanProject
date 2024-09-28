@@ -11,10 +11,10 @@ struct DoingList: View {
     @ObservedObject var issueVM: IssuesVM
     var body: some View {
         List {
-            if issueVM.issuesDictionary["doing"] == [] {
+            if issueVM.issuesDictionary[.doing] == [] {
                 Text("There is no issues.")
             } else {
-                ForEach(issueVM.issuesDictionary["doing"] ?? []) { issue in
+                ForEach(issueVM.issuesDictionary[.doing] ?? []) { issue in
                     IssueCellDoing(issueVM: issueVM, issue: issue)
                 }
             }
@@ -23,5 +23,5 @@ struct DoingList: View {
 }
 
 #Preview {
-    DoingList(issueVM: IssuesVM(repositoryName: "kanban"))
+    DoingList(issueVM: IssuesVM(issueInteractor: IssuesInteractor(), repositoryName: "kanban"))
 }

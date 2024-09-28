@@ -35,12 +35,17 @@ struct IssuesView: View {
                 Text("Done")
             }
         }
+        .onAppear {
+            Task {
+                await issueVM.obtainIssues()
+            }
+        }
         .navigationTitle(title)
     }
 }
 
 #Preview {
     NavigationStack {
-        IssuesView(issueVM: IssuesVM(repositoryName: "kanban"), title: "title")
+        IssuesView(issueVM: IssuesVM(issueInteractor: IssuesInteractor(), repositoryName: "kanban"), title: "title")
     }
 }

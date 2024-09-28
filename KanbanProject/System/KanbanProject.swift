@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct KanbanProject: App {
-    @StateObject var reposVM = ReposVM()
+    @StateObject var reposVM = ReposVM(repoInteractor: ReposInteractor())
 
     var body: some Scene {
         WindowGroup {

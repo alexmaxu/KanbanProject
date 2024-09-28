@@ -18,8 +18,6 @@ protocol ReposInteractorProtocol {
 
 struct ReposInteractor: NetworkInteractor, ReposInteractorProtocol {
     
-    static let shared = ReposInteractor()
-    
     func fetchRepos(page: Int) async throws -> [Repository] {
         try await getJSONFromURLRequest(request: .get(url: .getRepositoryURL, page: page), type: [Repository].self)
     }

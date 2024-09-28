@@ -21,7 +21,7 @@ final class ReposVM: ObservableObject {
     var page = 1
     var isLastApiPage = false
     
-    init(repoInteractor: ReposInteractorProtocol = ReposInteractor.shared ) {
+    init(repoInteractor: ReposInteractorProtocol) {
         self.repoInteractor = repoInteractor
         getLocalRepos()
         Task {

@@ -49,5 +49,5 @@ struct IssueCellDone: View {
 }
 
 #Preview {
-    IssueCellDone(issueVM: IssuesVM(repositoryName: "kanban"), issue: .issuePreview)
+    IssueCellDone(issueVM: IssuesVM(issueInteractor: IssuesInteractor(), repositoryName: "kanban"), issue: .issuePreview)
 }

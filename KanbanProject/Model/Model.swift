@@ -26,3 +26,10 @@ struct Issue: Codable, Identifiable, Hashable{
     let number: Int
     let createdAt: String
 }
+
+enum KanbanColumn: String, Codable {
+    case backlog
+    case next
+    case doing
+    case done
+}

@@ -50,5 +50,5 @@ struct IssueCellBacklog: View {
 }
 
 #Preview {
-    IssueCellBacklog(issueVM: IssuesVM(repositoryName: "kanban"), issue: .issuePreview)
+    IssueCellBacklog(issueVM: IssuesVM(issueInteractor: IssuesInteractor(), repositoryName: "kanban"), issue: .issuePreview)
 }

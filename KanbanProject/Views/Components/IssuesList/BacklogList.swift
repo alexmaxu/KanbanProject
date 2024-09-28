@@ -13,10 +13,10 @@ struct BacklogList: View {
     
     var body: some View {
         List {
-            if issueVM.issuesDictionary["backlog"] == [] {
+            if issueVM.issuesDictionary[.backlog] == [] {
                 Text("There is no issues.")
             } else {
-                ForEach(issueVM.issuesDictionary["backlog"] ?? []) { issue in
+                ForEach(issueVM.issuesDictionary[.backlog] ?? []) { issue in
                     IssueCellBacklog(issueVM: issueVM, issue: issue)
                 }
             }
@@ -25,5 +25,5 @@ struct BacklogList: View {
 }
 
 #Preview {
-    BacklogList(issueVM: IssuesVM(repositoryName: "kanban") )
+    BacklogList(issueVM: IssuesVM(issueInteractor: IssuesInteractor(), repositoryName: "kanban") )
 }
