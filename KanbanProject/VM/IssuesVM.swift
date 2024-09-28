@@ -11,7 +11,7 @@ final class IssuesVM: ObservableObject {
     
     let issueInteractor: IssuesInteractorProtocol
     
-    var repositoryName = ""
+    var repositoryName = "test hola"
     
     @Published var issuesList: [Issue] = []
     
