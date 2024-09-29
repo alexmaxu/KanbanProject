@@ -4,6 +4,9 @@ Kanban Project is a SwiftUI application that allows you to manage your GitHub re
 
 To have a repository with issues to test the app you can use my repository named: "kanban"
 
+## App Structure 
+![A4 - 1-9](https://github.com/user-attachments/assets/547bb23e-292d-48da-9697-af33f03f5640)
+
 ## Features
 
 - **View Repositories**: Connect your GitHub account and view your list of repositories.
