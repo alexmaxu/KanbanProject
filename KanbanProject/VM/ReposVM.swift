@@ -49,7 +49,9 @@ final class ReposVM: ObservableObject {
     func deleteReposFromLocalRepository(repoID: Int) {
         if let indexToDelete = localReposList.firstIndex(where: { $0.id == repoID }) {
             do {
-                try repoInteractor.deleteIssuesDictionary(repositoryName: localReposList[indexToDelete].name)
+                try repoInteractor.deleteIssuesDictionary(
+                    repositoryName: localReposList[indexToDelete].name
+                )
             } catch {
                 print(error)
             }

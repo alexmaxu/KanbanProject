@@ -19,7 +19,7 @@ struct IssueCellNext: View {
                 Text(issue.title)
                     .bold()
                     .font(.title2)
-                Text(issueVM.shortDate(date: issue.createdAt))
+                Text(issueVM.dateToString(date: issue.createdAt))
                 Text("Comments: \(issue.comments)")
                 Text("Issue: \(issue.number)")
             }

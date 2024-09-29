@@ -8,5 +8,13 @@
 import Foundation
 
 extension Issue {
-    static let issuePreview = Issue(id: 1231231234, title: "IssuePreview", state: "open", body: "IssuePreview body", comments: 0, number: 1, createdAt: "2024-09-24T09:20:21Z")
+    static let issuePreview = Issue(
+        id: 1231231234,
+        title: "IssuePreview",
+        state: "open",
+        body: "IssuePreview body",
+        comments: 0,
+        number: 1,
+        createdAt: Date()
+    )
 }

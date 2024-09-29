@@ -15,7 +15,10 @@ final class IssuesVM: ObservableObject {
     
     @Published var issuesList: [Issue] = []
     
-    @Published var issuesDictionary: [KanbanColumn:[Issue]] = [.backlog:[], .next:[], .doing:[], .done:[]] {
+    @Published var issuesDictionary: [KanbanColumn:[Issue]] = [.backlog:[],
+                                                               .next:[],
+                                                               .doing:[],
+                                                               .done:[]] {
         didSet {
             saveIssuesDictionary()
         }
@@ -96,7 +99,8 @@ final class IssuesVM: ObservableObject {
     
     func saveIssuesDictionary() {
         do {
-            try issueInteractor.saveIssuesDictionary(issuedDictionary: issuesDictionary, repositoryName: repositoryName)
+            try issueInteractor.saveIssuesDictionary(issuedDictionary: issuesDictionary,
+                                                     repositoryName: repositoryName)
         } catch {
             print(error)
         }
@@ -104,7 +108,9 @@ final class IssuesVM: ObservableObject {
     
     func loadIssuesDictionary() async {
         do {
-            let resultIssuesDictionary = try issueInteractor.loadIssuesDictionary(repositoryName: repositoryName)
+            let resultIssuesDictionary = try issueInteractor.loadIssuesDictionary(
+                repositoryName: repositoryName
+            )
             await MainActor.run {
                 self.issuesDictionary = resultIssuesDictionary
             }
@@ -137,5 +143,12 @@ final class IssuesVM: ObservableObject {
     
     func shortDate(date: String) -> String {
         String(date.prefix(10))
+    }
+    
+    func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        
+        return formatter.string(from: date)
     }
 }

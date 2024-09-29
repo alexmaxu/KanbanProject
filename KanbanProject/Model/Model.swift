@@ -24,7 +24,7 @@ struct Issue: Codable, Identifiable, Hashable{
     let body: String?
     let comments: Int
     let number: Int
-    let createdAt: String
+    let createdAt: Date
 }
 
 enum KanbanColumn: String, Codable {
