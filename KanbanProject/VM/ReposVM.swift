@@ -11,12 +11,16 @@ final class ReposVM: ObservableObject {
     
     let repoInteractor: ReposInteractorProtocol
     
-    @Published var reposList: [Repository] = []
-    @Published var localReposList: [Repository] = [] {
+    @Published var generalReposirotyList: [Repository] = []
+    
+    @Published var localRepositoryList: [Repository] = [] {
         didSet {
             saveLocalRepos()
         }
     }
+    
+    @Published var isLoading = true
+    @Published var isError = false
     
     var page = 1
     var isLastApiPage = false
@@ -26,43 +30,45 @@ final class ReposVM: ObservableObject {
         getLocalRepos()
         Task {
             await getGeneralRepos()
+            await MainActor.run {
+                isLoading = false
+            }
         }
     }
     
     func saveLocalRepos() {
         do {
-            try repoInteractor.saveLocalRepositories(localRepositories: localReposList)
+            try repoInteractor.saveLocalRepositories(localRepositories: localRepositoryList)
         } catch {
-            print(error)
+            isError.toggle()
         }
-        
     }
     
     func getLocalRepos() {
         do {
-            self.localReposList = try repoInteractor.loadLocalRepositories()
+            self.localRepositoryList = try repoInteractor.loadLocalRepositories()
         } catch {
-            print(error)
+            isError.toggle()
         }
     }
     
     func deleteReposFromLocalRepository(repoID: Int) {
-        if let indexToDelete = localReposList.firstIndex(where: { $0.id == repoID }) {
+        if let indexToDelete = localRepositoryList.firstIndex(where: { $0.id == repoID }) {
             do {
                 try repoInteractor.deleteIssuesDictionary(
-                    repositoryName: localReposList[indexToDelete].name
+                    repositoryName: localRepositoryList[indexToDelete].name
                 )
             } catch {
-                print(error)
+                isError.toggle()
             }
-            localReposList.remove(at: indexToDelete)
+            localRepositoryList.remove(at: indexToDelete)
         }
     }
     
     func addToLocalRepository(repoID: Int) {
-        if let repoToAdd = reposList.first(where: { $0.id == repoID }) {
-            if !localReposList.contains(repoToAdd) {
-                localReposList.append(repoToAdd)
+        if let repoToAdd = generalReposirotyList.first(where: { $0.id == repoID }) {
+            if !localRepositoryList.contains(repoToAdd) {
+                localRepositoryList.append(repoToAdd)
             }
         }
     }
@@ -74,16 +80,16 @@ final class ReposVM: ObservableObject {
                 isLastApiPage = true
             } else {
                 await MainActor.run {
-                    self.reposList += reposResult
+                    self.generalReposirotyList += reposResult
                 }
             }
         } catch {
-            print(error)
+            isError.toggle()
         }
     }
     
     func getNextPageRepos(repo: Repository) {
-        if repo.id == reposList.last?.id && !isLastApiPage {
+        if repo.id == generalReposirotyList.last?.id && !isLastApiPage {
             page += 1
             Task {
                 await getGeneralRepos()

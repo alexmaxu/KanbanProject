@@ -35,7 +35,14 @@ struct IssuesView: View {
                 Text("Done")
             }
         }
+        .overlay {
+            LoadingView().opacity(issueVM.isLoading ? 1 : 0)
+        }
+        .overlay {
+            SomethingWentWrongView().opacity(issueVM.isError ? 1 : 0)
+        }
         .onAppear {
+            
             Task {
                 await issueVM.obtainIssues()
             }

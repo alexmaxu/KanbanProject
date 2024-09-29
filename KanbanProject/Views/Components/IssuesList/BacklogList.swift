@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BacklogList: View {
-    
     @ObservedObject var issueVM: IssuesVM
     
     var body: some View {

@@ -127,24 +127,23 @@ final class IssueViewModelTest: XCTestCase {
     
     private var issueA: Issue {
         IssueDTO(id: 0,
-              title: "A",
-              state: "",
-              body: "",
-              comments: 9,
-              number: 0,
+                 title: "A",
+                 state: "",
+                 body: "",
+                 comments: 9,
+                 number: 0,
                  createdAt: "2024-09-26T07:44:34Z").toIssue
     }
     
     private var issueB: Issue {
         IssueDTO(id: 1,
-              title: "B",
-              state: "",
-              body: "",
-              comments: 9,
-              number: 0,
+                 title: "B",
+                 state: "",
+                 body: "",
+                 comments: 9,
+                 number: 0,
                  createdAt: "2024-09-26T07:44:34Z").toIssue
     }
-
 }
 
 final class IssuesInteractorMock: IssuesInteractorProtocol {

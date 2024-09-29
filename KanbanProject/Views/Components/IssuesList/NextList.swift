@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NextList: View {
-    
     @ObservedObject var issueVM: IssuesVM
     
     var body: some View {

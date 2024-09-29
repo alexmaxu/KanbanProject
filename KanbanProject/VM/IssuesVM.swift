@@ -10,8 +10,11 @@ import Foundation
 final class IssuesVM: ObservableObject {
     
     let issueInteractor: IssuesInteractorProtocol
+    
     var repositoryName: String = ""
     
+    @Published var isLoading = true
+    @Published var isError = false
     
     @Published var issuesList: [Issue] = []
     
@@ -37,6 +40,9 @@ final class IssuesVM: ObservableObject {
             } else {
                 await fetchIssuesByRepositoryToList()
                 await addMissingIssuesToBacklog()
+            }
+            await MainActor.run {
+                isLoading = false
             }
         }
     }
@@ -114,7 +120,7 @@ final class IssuesVM: ObservableObject {
             try issueInteractor.saveIssuesDictionary(issuedDictionary: issuesDictionary,
                                                      repositoryName: repositoryName)
         } catch {
-            print(error)
+            isError.toggle()
         }
     }
     
@@ -127,7 +133,7 @@ final class IssuesVM: ObservableObject {
                 self.issuesDictionary = resultIssuesDictionary
             }
         } catch {
-            print(error)
+            isError.toggle()
         }
     }
     
@@ -138,7 +144,7 @@ final class IssuesVM: ObservableObject {
                 self.issuesDictionary[.backlog] = issueResult
             }
         } catch {
-            print(error)
+            isError.toggle()
         }
     }
     
@@ -149,7 +155,7 @@ final class IssuesVM: ObservableObject {
                 self.issuesList = issueResult
             }
         } catch {
-            print(error)
+            isError.toggle()
         }
     }
 

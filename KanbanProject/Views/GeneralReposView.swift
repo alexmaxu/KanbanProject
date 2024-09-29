@@ -9,11 +9,12 @@ import SwiftUI
 
 struct GeneralReposView: View {
     @EnvironmentObject var reposVM: ReposVM
+    
     @Binding var selectedTab: Int
     
     var body: some View {
         List {
-            ForEach(reposVM.reposList) { repo in
+            ForEach(reposVM.generalReposirotyList) { repo in
                 HStack {
                     VStack(alignment: .leading) {
                         Text(repo.name)

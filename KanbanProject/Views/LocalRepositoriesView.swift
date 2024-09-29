@@ -9,12 +9,13 @@ import SwiftUI
 
 struct LocalRepositoriesView: View {
     @EnvironmentObject var reposVM: ReposVM
+    
     var body: some View {
         List {
-            if reposVM.localReposList.isEmpty {
+            if reposVM.localRepositoryList.isEmpty {
                 Text("There is no Local Repositories. You should add it from Public Repositories")
             }
-            ForEach(reposVM.localReposList, id: \.self) { localRepo in
+            ForEach(reposVM.localRepositoryList, id: \.self) { localRepo in
                 NavigationLink(value: localRepo) {
                     VStack(alignment: .leading) {
                         Text(localRepo.name)

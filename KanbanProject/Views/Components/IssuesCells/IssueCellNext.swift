@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct IssueCellNext: View {
-    
     @ObservedObject var issueVM: IssuesVM
     
     let issue: Issue
@@ -56,9 +55,7 @@ struct IssueCellNext: View {
                             Color.green.opacity(0.2)
                         }
                         .clipShape(.rect(cornerRadius: 12))
-                    
                 }
-                
             }
             .buttonStyle(.plain)
         }

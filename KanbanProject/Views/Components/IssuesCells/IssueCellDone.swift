@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct IssueCellDone: View {
-    
     @ObservedObject var issueVM: IssuesVM
     
     let issue: Issue

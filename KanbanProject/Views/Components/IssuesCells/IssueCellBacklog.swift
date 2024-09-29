@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct IssueCellBacklog: View {
-    
     @ObservedObject var issueVM: IssuesVM
     
     let issue: Issue
     
     var body: some View {
         HStack {
-            VStack (alignment: .leading){
+            VStack(alignment: .leading) {
                 Text(issue.title)
                     .bold()
                     .font(.title2)
@@ -40,9 +39,7 @@ struct IssueCellBacklog: View {
                             Color.green.opacity(0.2)
                         }
                         .clipShape(.rect(cornerRadius: 12))
-                    
                 }
-                
             }
             .buttonStyle(.plain)
         }

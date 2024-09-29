@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DoneList: View {
     @ObservedObject var issueVM: IssuesVM
+    
     var body: some View {
         List {
             if issueVM.issuesDictionary[.done] == [] {
