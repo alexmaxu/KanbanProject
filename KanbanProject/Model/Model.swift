@@ -27,8 +27,6 @@ struct Issue: Codable, Identifiable, Hashable {
     let createdAt: Date
 }
 
-
-
 enum KanbanColumn: String, Codable {
     case backlog
     case next
