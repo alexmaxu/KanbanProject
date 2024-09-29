@@ -43,12 +43,12 @@ final class IssuesVM: ObservableObject {
     
     func addMissingIssuesToBacklog() async {
         let issuesFromDictionary = issuesDictionary.values.flatMap({ $0 })
-        let uniqueIssuesFromDictionary = Set(issuesFromDictionary)
+        let uniqueIssuesDictionary = Set(issuesFromDictionary)
         
-        let uniqueIssuesFromArray = Set(issuesList)
+        let uniqueIssuesArray = Set(issuesList)
         
-        if !(uniqueIssuesFromArray == uniqueIssuesFromDictionary) {
-            let missIssues = Array(uniqueIssuesFromDictionary.symmetricDifference(uniqueIssuesFromArray))
+        if !(uniqueIssuesArray == uniqueIssuesDictionary) {
+            let missIssues = Array(uniqueIssuesDictionary.symmetricDifference(uniqueIssuesArray))
             await MainActor.run {
                 issuesDictionary[.backlog]? += missIssues
             }
@@ -57,42 +57,54 @@ final class IssuesVM: ObservableObject {
     
     func moveRightBacklog(issue: Issue) {
         issuesDictionary[.next]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary[.backlog]?.firstIndex(where: { $0.id == issue.id }) {
+        if let issueIndexTodelete = issuesDictionary[.backlog]?.firstIndex(
+            where: { $0.id == issue.id }
+        ) {
             issuesDictionary[.backlog]?.remove(at: issueIndexTodelete)
         }
     }
     
     func moveRightNext(issue: Issue) {
         issuesDictionary[.doing]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary[.next]?.firstIndex(where: { $0.id == issue.id }) {
+        if let issueIndexTodelete = issuesDictionary[.next]?.firstIndex(
+            where: { $0.id == issue.id }
+        ) {
             issuesDictionary[.next]?.remove(at: issueIndexTodelete)
         }
     }
     
     func moveLeftNext(issue: Issue) {
         issuesDictionary[.backlog]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary[.next]?.firstIndex(where: { $0.id == issue.id }) {
+        if let issueIndexTodelete = issuesDictionary[.next]?.firstIndex(
+            where: { $0.id == issue.id }
+        ) {
             issuesDictionary[.next]?.remove(at: issueIndexTodelete)
         }
     }
     
     func moveRightDoing(issue: Issue) {
         issuesDictionary[.done]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary[.doing]?.firstIndex(where: { $0.id == issue.id }) {
+        if let issueIndexTodelete = issuesDictionary[.doing]?.firstIndex(
+            where: { $0.id == issue.id }
+        ) {
             issuesDictionary[.doing]?.remove(at: issueIndexTodelete)
         }
     }
     
     func moveLeftDoing(issue: Issue) {
         issuesDictionary[.next]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary[.doing]?.firstIndex(where: { $0.id == issue.id }) {
+        if let issueIndexTodelete = issuesDictionary[.doing]?.firstIndex(
+            where: { $0.id == issue.id }
+        ) {
             issuesDictionary[.doing]?.remove(at: issueIndexTodelete)
         }
     }
     
     func moveLeftDone(issue: Issue) {
         issuesDictionary[.doing]?.append(issue)
-        if let issueIndexTodelete = issuesDictionary[.done]?.firstIndex(where: { $0.id == issue.id }) {
+        if let issueIndexTodelete = issuesDictionary[.done]?.firstIndex(
+            where: { $0.id == issue.id }
+         ) {
             issuesDictionary[.done]?.remove(at: issueIndexTodelete)
         }
     }
@@ -140,11 +152,7 @@ final class IssuesVM: ObservableObject {
             print(error)
         }
     }
-    
-    func shortDate(date: String) -> String {
-        String(date.prefix(10))
-    }
-    
+
     func dateToString(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"

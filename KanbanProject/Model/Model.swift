@@ -17,7 +17,7 @@ struct Owner: Codable, Hashable {
     let login: String
 }
 
-struct Issue: Codable, Identifiable, Hashable{
+struct Issue: Codable, Identifiable, Hashable {
     let id: Int
     let title: String
     let state: String
@@ -26,6 +26,8 @@ struct Issue: Codable, Identifiable, Hashable{
     let number: Int
     let createdAt: Date
 }
+
+
 
 enum KanbanColumn: String, Codable {
     case backlog

@@ -126,23 +126,23 @@ final class IssueViewModelTest: XCTestCase {
     }
     
     private var issueA: Issue {
-        Issue(id: 0,
+        IssueDTO(id: 0,
               title: "A",
               state: "",
               body: "",
               comments: 9,
               number: 0,
-              createdAt: "")
+                 createdAt: "2024-09-26T07:44:34Z").toIssue
     }
     
     private var issueB: Issue {
-        Issue(id: 1,
+        IssueDTO(id: 1,
               title: "B",
               state: "",
               body: "",
               comments: 9,
               number: 0,
-              createdAt: "")
+                 createdAt: "2024-09-26T07:44:34Z").toIssue
     }
 
 }

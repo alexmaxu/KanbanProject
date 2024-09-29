@@ -23,7 +23,7 @@ struct IssuesInteractor: NetworkInteractor, IssuesInteractorProtocol {
     
     func fetchIssues(repositoryName: String) async throws -> [Issue] {
         try await getJSONFromURL(url: .getIssuesURL(repositoryName: repositoryName),
-                                 type: [Issue].self)
+                                 type: [IssueDTO].self).map({$0.toIssue})
     }
     
     func deleteIssuesDictionary(repositoryName: String) throws {
