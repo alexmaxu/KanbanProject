@@ -14,7 +14,11 @@ Kanban Project is a SwiftUI application that allows you to manage your GitHub re
 
 - **Issue Management**: Retrieve the list of issues from your GitHub repositories and organize them on a Kanban board.
 
-![3-2](https://github.com/user-attachments/assets/5c35f854-23a9-4c92-94c5-7512f1222e5c) ![4-2](https://github.com/user-attachments/assets/fc9c5ab2-57a5-43ae-aba3-8b3eb21e040e) ![5](https://github.com/user-attachments/assets/ba43532f-3b89-4ca7-9fc1-f6f13d5dc89c) ![6](https://github.com/user-attachments/assets/e1288b43-c157-4367-8d62-9bb971729343)
+![backlog](https://github.com/user-attachments/assets/91e846ea-71ca-4a63-b2ae-8c19aeadacf5) ![next](https://github.com/user-attachments/assets/8b0f3b47-f2cc-4472-9920-2e9e87916da6) ![doing](https://github.com/user-attachments/assets/bd8aefb0-6273-46c7-b2c5-d6acac9d5160) ![done](https://github.com/user-attachments/assets/45926d45-644a-49e6-8cc4-4b22271c2b5a)
+
+
+
+
 
 
 
