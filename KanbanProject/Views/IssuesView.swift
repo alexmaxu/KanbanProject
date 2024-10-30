@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IssuesView: View {
-    @ObservedObject var issueVM: IssuesVM
+    @StateObject var issueVM: IssuesVM
     
     let title: String
     
@@ -39,7 +39,7 @@ struct IssuesView: View {
             LoadingView().opacity(issueVM.isLoading ? 1 : 0)
         }
         .overlay {
-            SomethingWentWrongView().opacity(issueVM.isError ? 1 : 0)
+            SomethingWentWrongView(errorMesage: "holoa").opacity(issueVM.isError ? 1 : 0)
         }
         .onAppear {
             

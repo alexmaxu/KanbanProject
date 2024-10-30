@@ -22,6 +22,8 @@ final class ReposVM: ObservableObject {
     @Published var isLoading = true
     @Published var isError = false
     
+    var errorMesage: String = ""
+    
     var page = 1
     var isLastApiPage = false
     
@@ -30,9 +32,6 @@ final class ReposVM: ObservableObject {
         getLocalRepos()
         Task {
             await getGeneralRepos()
-            await MainActor.run {
-                isLoading = false
-            }
         }
     }
     
@@ -54,7 +53,9 @@ final class ReposVM: ObservableObject {
     
     func deleteReposFromLocalRepository(repoID: Int) {
         if let indexToDelete = localRepositoryList.firstIndex(where: { $0.id == repoID }) {
+            
             do {
+                
                 try repoInteractor.deleteIssuesDictionary(
                     repositoryName: localRepositoryList[indexToDelete].name
                 )
@@ -83,8 +84,20 @@ final class ReposVM: ObservableObject {
                     self.generalReposirotyList += reposResult
                 }
             }
+            await MainActor.run {
+                isLoading = false
+            }
+        } catch let error as NetworkError {
+            await MainActor.run {
+                errorMesage = error.errorDescription
+                isError.toggle()
+            }
+            
         } catch {
-            isError.toggle()
+            await MainActor.run {
+                errorMesage = error.localizedDescription
+                isError.toggle()
+            }
         }
     }
     

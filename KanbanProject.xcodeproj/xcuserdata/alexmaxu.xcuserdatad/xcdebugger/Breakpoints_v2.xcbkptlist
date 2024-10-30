@@ -18,50 +18,6 @@
             endingLineNumber = "45"
             landmarkName = "body"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "4E34B093-A740-43B2-862D-BB18FDE1E1AD - 208233dd9567b484"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #4 () -&gt; () in KanbanProject.IssuesView.body.getter : some"
-                  moduleName = "KanbanProject.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alexmaxu/Developer/KanbanProject/KanbanProject/Views/IssuesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "45"
-                  endingLineNumber = "45">
-               </Location>
-               <Location
-                  uuid = "4E34B093-A740-43B2-862D-BB18FDE1E1AD - 4c0bd44cdb2bbdc4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () async -&gt; () in closure #4 () -&gt; () in KanbanProject.IssuesView.body.getter : some"
-                  moduleName = "KanbanProject.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alexmaxu/Developer/KanbanProject/KanbanProject/Views/IssuesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "45"
-                  endingLineNumber = "45">
-               </Location>
-               <Location
-                  uuid = "4E34B093-A740-43B2-862D-BB18FDE1E1AD - 34196769099fda5f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in closure #4 () -&gt; () in KanbanProject.IssuesView.body.getter : some"
-                  moduleName = "KanbanProject.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alexmaxu/Developer/KanbanProject/KanbanProject/Views/IssuesView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "45"
-                  endingLineNumber = "45">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

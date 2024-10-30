@@ -30,7 +30,9 @@ struct ContentView: View {
                         .tag(1)
                 }
                 .navigationDestination(for: Repository.self) { repo in
-                    IssuesView(issueVM: IssuesVM(issueInteractor: IssuesInteractor(), repositoryName: repo.name), title: repo.name)
+                    IssuesView(issueVM: IssuesVM(issueInteractor: IssuesInteractor(),
+                                                 repositoryName: repo.name),
+                               title: repo.name)
                 }
                 .navigationTitle("Repositories")
             }
@@ -38,7 +40,7 @@ struct ContentView: View {
                 LoadingView().opacity(reposVM.isLoading ? 1 : 0)
             }
             .overlay {
-                SomethingWentWrongView().opacity(reposVM.isError ? 1 : 0)
+                SomethingWentWrongView(errorMesage: reposVM.errorMesage).opacity(reposVM.isError ? 1 : 0)
             }
         }
     }
