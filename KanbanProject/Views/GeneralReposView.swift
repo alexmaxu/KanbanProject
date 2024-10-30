@@ -24,6 +24,7 @@ struct GeneralReposView: View {
                     .frame(height: 130)
                     Text("mainNew")
                     Spacer()
+                    Text("new test3")
                     Image(systemName: "plus")
                         .resizable()
                         .scaledToFit()
