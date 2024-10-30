@@ -20,6 +20,7 @@ struct ContentView: View {
                         .tabItem {
                             Image(systemName: "square")
                             Text("Main test2 General")
+                            Text("new")
                         }
                         .tag(0)
                     LocalRepositoriesView()
