@@ -26,7 +26,7 @@ struct ContentView: View {
                     LocalRepositoriesView()
                         .tabItem {
                             Image(systemName: "triangle")
-                            Text("Local")
+                            
                         }
                         .tag(1)
                 }
