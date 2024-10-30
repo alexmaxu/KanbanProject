@@ -22,6 +22,7 @@ struct GeneralReposView: View {
                         Text(repo.owner.login)
                     }
                     .frame(height: 130)
+                    Text("mainNew")
                     Spacer()
                     Image(systemName: "plus")
                         .resizable()
