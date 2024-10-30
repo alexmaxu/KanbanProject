@@ -16,7 +16,7 @@ struct SomethingWentWrongView: View {
                 .frame(width: 100, height: 100)
                 .foregroundColor(.red)
             
-            Text("Something went wrong")
+            Text("Something went wrongqwe")
                 .font(.title)
                 .fontWeight(.bold)
             

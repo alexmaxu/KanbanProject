@@ -14,7 +14,7 @@ struct LoadingView: View {
             Color.white
             Color.black.opacity(0.4)
                 .edgesIgnoringSafeArea(.all)
-            ProgressView("Loading...")
+            ProgressView("Loading...qwer")
                 .progressViewStyle(CircularProgressViewStyle())
                 .padding(20)
                 .background(Color.white)

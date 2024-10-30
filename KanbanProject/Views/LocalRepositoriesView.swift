@@ -13,7 +13,7 @@ struct LocalRepositoriesView: View {
     var body: some View {
         List {
             if reposVM.localRepositoryList.isEmpty {
-                Text("There is no Local Repositories. You should add it from Public Repositories")
+                Text("There is no Local Repositories. You should add it from Public Repositoriesqwe")
             }
             ForEach(reposVM.localRepositoryList, id: \.self) { localRepo in
                 NavigationLink(value: localRepo) {

@@ -18,6 +18,7 @@ struct IssuesView: View {
             .tabItem {
                 Image(systemName: "triangle")
                 Text("Backlog")
+                Text("new")
             }
             NextList(issueVM: issueVM)
             .tabItem {
