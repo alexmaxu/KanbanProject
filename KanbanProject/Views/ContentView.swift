@@ -19,7 +19,7 @@ struct ContentView: View {
                     GeneralReposView(selectedTab: $selectedTab)
                         .tabItem {
                             Image(systemName: "square")
-                            Text("General Repositories")
+                            Text("General Repositories2")
                         }
                         .tag(0)
                     LocalRepositoriesView()
